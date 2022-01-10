@@ -3,7 +3,7 @@ import { HiDocumentRemove } from "react-icons/hi";
 import { Spinner } from "..";
 import { useTodoContext } from "../../contexts/TodoContext";
 
-const ListTodos = () => {
+const ListTodos = ({ setDetailId }) => {
   //
   const { todos, deleteDocTodo } = useTodoContext();
   const [isLoading, setIsLoading] = useState();
@@ -18,8 +18,13 @@ const ListTodos = () => {
   return (
     <ul className="my-4 space-y-2">
       {todos.map((todo, i) => (
-        <li key={i} className="flex justify-between border px-4 py-2">
-          <div>{todo.title}</div>
+        <li key={i} className="flex justify-between border">
+          <div
+            className="w-full  px-4 py-2 cursor-pointer hover:bg-gray-100"
+            onClick={() => setDetailId(todo.id)}
+          >
+            {todo.title}
+          </div>
 
           {isLoading == todo.id ? (
             <div className="w-8 h-8">

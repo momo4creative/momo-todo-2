@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Header, Spinner } from "../../components";
-import { FormAdd, ListTodos } from "../../components/todos";
+import { FormAdd, ListTodos, DetailTodo } from "../../components/todos";
 import { useTodoContext } from "../../contexts/TodoContext";
 
 const Todos = () => {
   //
   const { readDocsTodo } = useTodoContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [detailId, setDetailId] = useState();
 
   useEffect(() => {
     readDocsTodo().then((res) => {
@@ -26,9 +27,11 @@ const Todos = () => {
             <Spinner />
           </div>
         ) : (
-          <ListTodos />
+          <ListTodos setDetailId={setDetailId} />
         )}
       </main>
+
+      {detailId && <DetailTodo id={detailId} close={setDetailId} />}
     </>
   );
 };
